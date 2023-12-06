@@ -13,8 +13,11 @@ include "get_user_info.php";
 </head>
 <body>
   <?php include "header.php";?>
+  <section id="profile">
+
+  
   <?php if (isset($_POST['edit'])):?>
-    <form action="updateprofile.php" method="post" enctype="multipart/form-data">
+    <form action="updateprofile.php" method="post" enctype="multipart/form-data" autocomplete="off">
     <div class="profile-info">
         <div class="picture">
           <img src="<?php echo $userProfilePicture;?>" alt="">
@@ -26,21 +29,26 @@ include "get_user_info.php";
         <div class="user">
           <div class="name-div">
             <div class="fname">
-              <input type="text" name="firstname" placeholder="First Name" value="<?php echo $userFirstName; ?>">
+              <input type="text" name="firstname" placeholder="First Name" value="<?php echo $userFirstName; ?>"  class="growing-input" oninput="expandInput(this)">
             </div>
             <div class="lname">
-              <input type="text" name="lastname" placeholder="Last Name" value="<?php echo $userLastName; ?>">
+              <input type="text" name="lastname" placeholder="Last Name" value="<?php echo $userLastName; ?>"  class="growing-input" oninput="expandInput(this)">
             </div>
           </div>
           <div class="others">
-            <input type="text" name="contact" placeholder="Contact" value="<?php echo $userContact; ?>">
-            <input type="text" name="email" placeholder="Email" value="<?php echo $userEmail; ?>">
-            <input type="text" name="address" placeholder="Address" value="<?php echo $userAddress; ?>">
+            <input type="text" name="contact" placeholder="Contact" value="<?php echo $userContact; ?>" class="growing-input" oninput="expandInput(this)">
+            <input type="text" name="email" placeholder="Email" value="<?php echo $userEmail; ?>" class="growing-input" oninput="expandInput(this)">
+            <input type="text" name="address" placeholder="Address" value="<?php echo $userAddress; ?>" class="growing-input" oninput="expandInput(this)">
+          </div>
+          <div class="form">
+          <a href="profile.php" class="edit-button">Cancel</a>
+
+          <input type="submit" name="update" value="Update" class="edit-button">
+
           </div>
         </div>
       </div>
   
-    <input type="submit" name="update" value="Update">
   
     </form>
     
@@ -75,13 +83,23 @@ include "get_user_info.php";
           echo "<p class='blank'>Address not set</p>";
         } ?></p>
       </div>
-    </div>
-  </div>
+      <div class="form">
   <form action="" method="post">
-    <input type="submit" name="edit" value="Edit">
+    <input type="submit" name="edit" value="Edit" class="edit-button">
   </form>
-  <?php endif; ?>
+    </div>
+    
+  </div>
 
+  </div>
+  
+  <?php endif; ?>
+  </section>
   <?php include "footer.php";?>
 </body>
+<script>
+    function expandInput(input) {
+      input.style.width = input.value.length + "ch";
+    }
+  </script>
 </html>

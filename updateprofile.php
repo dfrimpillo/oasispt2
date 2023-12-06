@@ -1,36 +1,30 @@
 <?php
- 
- session_start();
- include "dbconnection.php";
- if(isset($_POST['update']))
- {
-    $username=$_SESSION['username'];
-    $fname=$_POST['firstname'];
-    $lname=$_POST['lastname'];
-    $email=$_POST['email'];
-    $contact=$_POST['contact'];
-    $address=$_POST['address'];
-    $select= "select * from userinfo where username ='$username'";
-    $sql = mysqli_query($conn,$select);
-    $row = mysqli_fetch_assoc($sql);
-    $res= $row['username'];
-    if($res === $username)
-    {
-   
-       $update = "update userinfo set firstname='$fname',lastname='$lname',email='$email', useraddress='$address', contactno='$contact' where username='$username'";
-       $sql2=mysqli_query($conn,$update);
-if($sql2)
-       { 
-           /*Successful*/
-           header('location:profile.php');
-       }
-       else
-       {
-        
-       }
+session_start();
+include "dbconnection.php";
+
+if (isset($_POST['update'])) {
+    $username = $_SESSION['username'];
+    $fname = $_POST['firstname'];
+    $lname = $_POST['lastname'];
+    $email = $_POST['email'];
+    $contact = $_POST['contact'];
+    $address = $_POST['address'];
+
+      $update = "UPDATE userinfo SET firstname=?, lastname=?, email=?, useraddress=?, contactno=? WHERE username=?";
+      $stmt = mysqli_prepare($conn, $update);
+      mysqli_stmt_bind_param($stmt, "ssssss", $fname, $lname, $email, $address, $contact, $username);
+    
+
+    mysqli_stmt_execute($stmt);
+    $success = mysqli_stmt_affected_rows($stmt) > 0;
+
+    if ($success) {
+        header('location: profile.php');
+        exit();
+    } else {
+        echo "Update failed!";
     }
-    else
-    {
-    }
- }
+
+    mysqli_close($conn);
+}
 ?>
