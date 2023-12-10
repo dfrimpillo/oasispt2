@@ -15,44 +15,6 @@ include "get_user_info.php";
   <?php include "header.php";?>
   <section id="profile">
 
-  
-  <?php if (isset($_POST['edit'])):?>
-    <form action="updateprofile.php" method="post" enctype="multipart/form-data" autocomplete="off">
-    <div class="profile-info">
-        <div class="picture">
-          <img src="<?php echo $userProfilePicture;?>" alt="">
-          <div class="round">
-            <input type="file" name="image" id="image" accept=".jpg, .jpeg, .png">
-            <i class="fa fa-camera" style="color: #fff;"></i>
-          </div>
-        </div>
-        <div class="user">
-          <div class="name-div">
-            <div class="fname">
-              <input type="text" name="firstname" placeholder="First Name" value="<?php echo $userFirstName; ?>"  class="growing-input" oninput="expandInput(this)">
-            </div>
-            <div class="lname">
-              <input type="text" name="lastname" placeholder="Last Name" value="<?php echo $userLastName; ?>"  class="growing-input" oninput="expandInput(this)">
-            </div>
-          </div>
-          <div class="others">
-            <input type="text" name="contact" placeholder="Contact" value="<?php echo $userContact; ?>" class="growing-input" oninput="expandInput(this)">
-            <input type="text" name="email" placeholder="Email" value="<?php echo $userEmail; ?>" class="growing-input" oninput="expandInput(this)">
-            <input type="text" name="address" placeholder="Address" value="<?php echo $userAddress; ?>" class="growing-input" oninput="expandInput(this)">
-          </div>
-          <div class="form">
-          <a href="profile.php" class="edit-button">Cancel</a>
-
-          <input type="submit" name="update" value="Update" class="edit-button">
-
-          </div>
-        </div>
-      </div>
-  
-  
-    </form>
-    
-  <?php else: ?>
   <div class="profile-info">
     <div class="picture">
       <img src="<?php echo $userProfilePicture;?>" alt="">
@@ -84,22 +46,88 @@ include "get_user_info.php";
         } ?></p>
       </div>
       <div class="form">
-  <form action="" method="post">
-    <input type="submit" name="edit" value="Edit" class="edit-button">
-  </form>
+      <button class="edit-button">Edit</button>
     </div>
     
   </div>
 
   </div>
+  <div class="profile-update-popup">
+  <div class="profile-update">
+    <div class="update-title">
+      <p>Update Account</p>
+    </div>
+        <form action="updateprofile.php" method="post" enctype="multipart/form-data">
+          <div class="form-group">
+          <div class="update-form">
+              <label for="image">Profile Picture</label>
+              <input type="file" name="image" accept=".jpg, .jpeg, .png">
+              <input type="text"
+                   hidden="hidden" 
+                   name="old_pp"
+                   value="<?=$userProfilePicture;?>" >
+            </div>
+            <div class="update-form">
+              <label for="firstname">First Name</label>
+              <input type="text" name="firstname" value="<?php echo $userFirstName; ?>">
+            </div>
+            <div class="update-form">
+              <label for="lastname">Last Name</label>
+              <input type="text" name="lastname" value="<?php echo $userLastName; ?>">
+            </div>
+            <div class="update-form">
+              <label for="contactno">Contact No.</label>
+              <input type="text" name="contact" value="<?php echo $userContact; ?>" placeholder="Contact number not set">
+            </div>
+            <div class="update-form">
+              <label for="email">Email</label>
+              <input type="email" name="email" value="<?php echo $userEmail; ?>">
+            </div>
+            <div class="update-form">
+              <label for="address">Address</label>
+              <input type="text" name="address" value="<?php echo $userAddress; ?>" placeholder="Address not set">
+            </div>
+            <div class="submit">
+              <input type="submit" name="update" value="Update" class="update-button">
+              <input type="button" name="cancel" value="Cancel" class="cancel-button">
+            </div>
+        </form>
+          </div>
+
+      </div>
+  </div>      
   
-  <?php endif; ?>
+  
   </section>
   <?php include "footer.php";?>
 </body>
 <script>
-    function expandInput(input) {
-      input.style.width = input.value.length + "ch";
-    }
+   var popupViews = document.querySelectorAll('.profile-update-popup');
+   var popupBtns = document.querySelectorAll('.edit-button');
+   var closeBtns = document.querySelectorAll('.cancel-button');
+
+   var popup = function(popupClick){
+  popupViews[popupClick].classList.add('active');
+  }
+
+popupBtns.forEach((popupBtn, i) => {
+  popupBtn.addEventListener("click", () => {
+    popup(i);
+  });
+});
+closeBtns.forEach((closeBtn) => {
+  closeBtn.addEventListener("click", () => {
+    popupViews.forEach((popupView) => {
+      popupView.classList.remove('active');
+    });
+  });
+});
+
+var closePopup = function() {
+  popupViews.forEach((popupView) => {
+    popupView.classList.remove('active');
+  });
+};
+
   </script>
 </html>
