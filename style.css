@@ -52,7 +52,8 @@
 }
 
 .userpicture {
-  width: 30px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   object-fit: cover;
   cursor: pointer;
@@ -118,7 +119,9 @@
 }
 
 .dropdown-userpicture {
-  width: 50px;
+  width: 55px;
+  height: 55px;
+  object-fit: cover;
   border-radius: 50%;
 }
 
@@ -285,7 +288,8 @@
 }
 
 .login-button input,
-.signup-button input {
+.signup-button input,
+.reset-button input {
   width: 100%;
   padding: 10px;
   background: white;
@@ -327,6 +331,10 @@
   color: #df3434;
   margin-top: -30px;
   margin-bottom: 10px;
+}
+
+.reset-button {
+  margin-top: 60px;
 }
 /* login / signup end */
 
@@ -778,7 +786,7 @@
   height: 54.2vh;
 }
 
-.picture img {
+#profile .picture img {
   border-radius: 50%;
   width: 250px;
   height: 250px;

@@ -43,7 +43,7 @@ unset($_SESSION["errormsg"]);
           <?php  } ?>
           
           <div class="forgot-password">
-            <a href="">Forgot password?</a>
+            <a href="forgotpw.php">Forgot password?</a>
           </div>
           <div class="login-button">
             <input type="submit" class="login-btn" value="LOGIN" name="login">
